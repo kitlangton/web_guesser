@@ -18,15 +18,18 @@ body {
   <body>
 
     <p>
-    <%= message %>
+      Remaining Guesses: <%= @@remaining_guesses %>
     </p>
 
-
-    <% if status == :correct %>
+    <% if status == :correct || cheatmode %>
       <p>
       The SECRET NUMBER is <%= secret_number %>
       </p>
     <% end %>
+
+    <p>
+    <%= message %>
+    </p>
 
   <form action="">
     <input type="text" name="guess" />
