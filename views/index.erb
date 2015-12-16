@@ -3,12 +3,30 @@
   <head>
     <meta charset="UTF-8">
     <title></title>
+    <style type="text/css" media="screen">
+body {
+    <% if status == :wayhigh || status == :waylow %>
+      background: red
+    <% elsif status == :high || status == :low %>
+      background: pink
+    <% elsif status == :correct %>
+      background: green
+    <% end %>
+}
+    </style>
   </head>
   <body>
 
     <p>
     <%= message %>
     </p>
+
+
+    <% if status == :correct %>
+      <p>
+      The SECRET NUMBER is <%= secret_number %>
+      </p>
+    <% end %>
 
   <form action="">
     <input type="text" name="guess" />

@@ -7,24 +7,31 @@ get '/' do
 
   guess = params["guess"]
 
-  message = check_guess(guess)
+  message, status = check_guess(guess)
 
-  erb :index, locals: { secret_number: settings.secret_number, message: message}
+  erb :index, locals: { secret_number: settings.secret_number, message: message, status: status}
 end
 
 def check_guess(guess)
-  return "Enter a guess!" if guess == ""
+  return ["Enter a guess!", :empty] if guess == ""
   guess = guess.to_i
 
   if guess - 5 > settings.secret_number
-    "Way too high!"
+    message = "Way too high!"
+    value = :wayhigh
   elsif guess > settings.secret_number
-    "Too high!"
+    message ="Too high!"
+    value = :high
   elsif guess + 5 < settings.secret_number
-    "Way too low!"
+    message ="Way too low!"
+    value = :waylow
   elsif guess < settings.secret_number
-    "Too low!"
+    message ="Too low!"
+    value = :low
   elsif guess == settings.secret_number
-    "You got it!\nThe SECRET NUMBER is #{settings.secret_number}"
+    message = "You got it!"
+    value = :correct
   end
+
+  [message, value]
 end
